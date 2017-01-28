@@ -1,3 +1,8 @@
 PORT = 5000
 HOST = "0.0.0.0"
 SECRET_KEY = 'dsDS323js73hshdsjASDFAs'
+
+SQLALCHEMY_ECHO = True
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/restaurants.sqlite'
