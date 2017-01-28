@@ -4,7 +4,7 @@ from collections import OrderedDict
 from api import db
 
 
-class Restaurants(db.Model, DAO):
+class Restaurants(db.Model):
     id = db.Column(db.TEXT, primary_key=True)
     rating = db.Column(db.Integer)
     name = db.Column(db.TEXT)
