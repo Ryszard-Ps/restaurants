@@ -65,5 +65,13 @@ class RestaurantsDetail(Resource):
         restaurant.update()
         return data
 
+    def delete(self, id):
+        restaurant = Restaurants.query.get(id)
+        delete = restaurant.delete(restaurant)
+        res = make_response()
+        res.status_code = 204
+        return res
+
+
 api.add_resource(RestaurantsList, '')
 api.add_resource(RestaurantsDetail, '/<string:id>')

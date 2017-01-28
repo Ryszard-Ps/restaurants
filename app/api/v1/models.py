@@ -11,6 +11,10 @@ class DAO():
     def update(self):
         return db.session.commit()
 
+    def delete(self, resource):
+        db.session.delete(resource)
+        return db.session.commit()
+
 
 class Restaurants(db.Model, DAO):
     id = db.Column(db.TEXT, primary_key=True)
