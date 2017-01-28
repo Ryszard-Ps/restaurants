@@ -14,12 +14,7 @@ class RestaurantsList(Resource):
         return res, 200
     def post(self):
         json_data = request.get_json(force=True)
-        if not json_data:
-            err = {"datos": ["Información insuficientes."]}
-            return error_422(err)
-
         data, errors = schema.load(json_data)
-        print(data)
         id, rating = data['id'], data['rating']
         name, site = data['name'], data['site']
         email, phone = data['email'], data['phone']
@@ -52,6 +47,23 @@ class RestaurantsDetail(Resource):
         res.status_code = 200
         return res
 
+    def put(self, id):
+        json_data = request.get_json(force=True)
+        data, errors = schema.load(json_data)
+        restaurant = Restaurants.query.get(id)
+        rating = data['rating']
+        setattr(restaurant, 'rating',data['rating'])
+        setattr(restaurant, 'name', data['name'])
+        setattr(restaurant, 'site',data['site'])
+        setattr(restaurant, 'email',data['email'])
+        setattr(restaurant, 'phone',data['phone'])
+        setattr(restaurant, 'street',data['street'])
+        setattr(restaurant, 'city',data['city'])
+        setattr(restaurant, 'state',data['state'])
+        setattr(restaurant, 'lat',data['lat'])
+        setattr(restaurant, 'lng',data['lng'])
+        restaurant.update()
+        return data
 
 api.add_resource(RestaurantsList, '')
 api.add_resource(RestaurantsDetail, '/<string:id>')

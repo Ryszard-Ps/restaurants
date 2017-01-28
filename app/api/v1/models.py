@@ -8,6 +8,10 @@ class DAO():
         db.session.add(resource)
         return db.session.commit()
 
+    def update(self):
+        return db.session.commit()
+
+
 class Restaurants(db.Model, DAO):
     id = db.Column(db.TEXT, primary_key=True)
     rating = db.Column(db.Integer)
