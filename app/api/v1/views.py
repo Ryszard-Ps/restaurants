@@ -45,5 +45,13 @@ class RestaurantsList(Resource):
         return res, 201
 
 
+class RestaurantsDetail(Resource):
+    def get(self, id):
+        query_set = Restaurants.query.get(id)
+        res = schema.dump(query_set).data
+        res.status_code = 200
+        return res
+
 
 api.add_resource(RestaurantsList, '')
+api.add_resource(RestaurantsDetail, '/<string:id>')
