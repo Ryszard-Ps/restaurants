@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from api import create_app
 
 app = create_app('config_app')

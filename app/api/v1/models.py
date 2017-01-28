@@ -1,22 +1,37 @@
+# -*- encoding: utf-8 -*-
 from marshmallow import Schema, fields, ValidationError
 from sqlalchemy.exc import SQLAlchemyError
 from collections import OrderedDict
 from api import db
 
 class DAO():
+    """Ejecuta los cambios del recurso Restaurants."""
     def add(self, resource):
+        """Realiza la creación del recurso Restaurants.
+
+        Argumentos:
+        resource - Objeto del tipo Restaurants
+        """
         db.session.add(resource)
         return db.session.commit()
 
     def update(self):
+        """Realiza la actualización del recurso Restaurants."""
         return db.session.commit()
 
     def delete(self, resource):
+        """Realiza la eliminación del recurso Restaurants.
+
+        Argumentos:
+        resource - Objeto del tipo Restaurants
+        """
+
         db.session.delete(resource)
         return db.session.commit()
 
 
 class Restaurants(db.Model, DAO):
+    """Estructura básica del recurso Restaurants."""
     id = db.Column(db.TEXT, primary_key=True)
     rating = db.Column(db.Integer)
     name = db.Column(db.TEXT)
@@ -33,6 +48,7 @@ class Restaurants(db.Model, DAO):
     def __init__(
         self,id ,rating, name, site, email, phone, street, city, state, lat, lng
         ):
+        """Constructor de Restaurants."""
         self.id = id
         self.rating = rating
         self.name = name
@@ -46,7 +62,7 @@ class Restaurants(db.Model, DAO):
         self.lng = lng
 
 class RestaurantsSchema(Schema):
-
+    """Serializador y Deserializador de Restaurants."""
     id = fields.String()
     rating = fields.Integer()
     name = fields.String()

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- encoding: utf-8 -*-
 from api import db
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
