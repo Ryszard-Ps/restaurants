@@ -3,12 +3,18 @@ from sqlalchemy.exc import SQLAlchemyError
 from collections import OrderedDict
 from api import db
 
+class DAO():
+    def add(self, resource):
+        db.session.add(resource)
+        return db.session.commit()
 
-class Restaurants(db.Model):
+class Restaurants(db.Model, DAO):
     id = db.Column(db.TEXT, primary_key=True)
     rating = db.Column(db.Integer)
     name = db.Column(db.TEXT)
     site = db.Column(db.TEXT)
+    email = db.Column(db.TEXT)
+    phone = db.Column(db.TEXT)
     street = db.Column(db.TEXT)
     city = db.Column(db.TEXT)
     state = db.Column(db.TEXT)
@@ -16,10 +22,15 @@ class Restaurants(db.Model):
     lng = db.Column(db.TEXT)
 
 
-    def __init__(self,  rating, name, site, street, city, state, lat, lng):
+    def __init__(
+        self,id ,rating, name, site, email, phone, street, city, state, lat, lng
+        ):
+        self.id = id
         self.rating = rating
         self.name = name
         self.site = site
+        self.email = email
+        self.phone = phone
         self.street = street
         self.city = city
         self.state = state
@@ -28,10 +39,12 @@ class Restaurants(db.Model):
 
 class RestaurantsSchema(Schema):
 
-    id = fields.String(dump_only=True)
+    id = fields.String()
     rating = fields.Integer()
     name = fields.String()
     site = fields.String()
+    email = fields.String()
+    phone = fields.String()
     street = fields.String()
     city = fields.String()
     state = fields.String()
@@ -40,5 +53,8 @@ class RestaurantsSchema(Schema):
 
     class Meta:
         type_ = 'restaurants'
-        fields = ("id", "rating", "name", "site", "street", "city", "state", "lat", "lng")
+        fields = (
+            "id", "rating", "name", "site", "email", "phone", "street",
+             "city", "state", "lat", "lng"
+        )
         ordered = True
